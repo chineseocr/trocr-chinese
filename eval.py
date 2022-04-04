@@ -30,7 +30,7 @@ def compute_metrics(pred_str, label_str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='trocr fine-tune训练')
-    parser.add_argument('--cut_data_init_weights_path', default='./cust-data/weights', type=str,
+    parser.add_argument('--cust_data_init_weights_path', default='./cust-data/weights', type=str,
                         help="初始化训练权重，用于自己数据集上fine-tune权重")
     parser.add_argument('--CUDA_VISIBLE_DEVICES', default='-1', type=str, help="GPU设置")
     parser.add_argument('--test_img', default='test/test.jpg', type=str, help="img path")
@@ -50,11 +50,11 @@ if __name__ == '__main__':
 
     print("train num:", len(train_paths), "test num:", len(test_paths))
 
-    processor = TrOCRProcessor.from_pretrained(args.cut_data_init_weights_path)
+    processor = TrOCRProcessor.from_pretrained(args.cust_data_init_weights_path)
     vocab = processor.tokenizer.get_vocab()
 
     vocab_inp = {vocab[key]: key for key in vocab}
-    model = VisionEncoderDecoderModel.from_pretrained(args.cut_data_init_weights_path)
+    model = VisionEncoderDecoderModel.from_pretrained(args.cust_data_init_weights_path)
     model.eval()
     model.cuda()
 

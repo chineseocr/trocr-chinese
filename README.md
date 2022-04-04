@@ -35,10 +35,12 @@ python init_custdata_model.py \
     --cust_vocab ./cust-data/vocab.txt \  
     --pretrain_model ./weights \
     --cust_data_init_weights_path ./cust-data/weights
-```
+    
 ## cust_vocab 词库文件   
 ## pretrain_model 预训练模型权重   
-## cut_data_init_weights_path 自定义模型初始化模型权重保存位置   
+## cust_data_init_weights_path 自定义模型初始化模型权重保存位置   
+
+```
 
 ### 训练模型
 #### 数据准备,数据结构如下图所示
