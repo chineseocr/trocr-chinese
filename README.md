@@ -85,5 +85,5 @@ python app.py --cust_data_init_weights_path hand-write --test_img test/hand.png
 ## 捐助
 如果此项目给您的工作带来了帮忙，希望您能贡献自己微薄的爱心,
 该项目的每一份收入将用着福利事业，每一季度在issues上公布捐赠明细!   
-![image](img/chat.jpg
+![image](img/chat.jpg)
 
