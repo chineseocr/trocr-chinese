@@ -59,9 +59,11 @@ if __name__ == '__main__':
     processor = TrOCRProcessor.from_pretrained(args.cust_data_init_weights_path)
     vocab = processor.tokenizer.get_vocab()
     vocab_inp = {vocab[key]: key for key in vocab}
+    transformer = lambda x: x ##图像数据增强函数，可自定义
 
-    train_dataset = trocrDataset(paths=train_paths, processor=processor, max_target_length=args.max_target_length)
-    eval_dataset = trocrDataset(paths=test_paths, processor=processor, max_target_length=args.max_target_length)
+    train_dataset = trocrDataset(paths=train_paths, processor=processor, max_target_length=args.max_target_length, transformer=transformer)
+    transformer = lambda x: x  ##图像数据增强函数
+    eval_dataset = trocrDataset(paths=test_paths, processor=processor, max_target_length=args.max_target_length, transformer=transformer)
 
     model = VisionEncoderDecoderModel.from_pretrained(args.cust_data_init_weights_path)
     model.config.decoder_start_token_id = processor.tokenizer.cls_token_id

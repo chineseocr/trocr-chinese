@@ -90,7 +90,7 @@ python app.py --cust_data_init_weights_path ./cust-data/weights --test_img test/
 | im2latex(数学公式识别)      |- | - |- |[im2latex](https://zenodo.org/record/56198#.YkniL25Bx_S) ||
 | TAL_OCR_TABLE(表格识别)     |- | - |- |[TAL_OCR_TABLE](https://ai.100tal.com/dataset) |
 | TAL_OCR_MATH(小学低年级算式数据集)|- | - |- | [TAL_OCR_MATH](https://ai.100tal.com/dataset) |
-| TAL_OCR_CHN(手写中文数据集)|- | - |- | [TAL_OCR_CHN](https://ai.100tal.com/dataset) ||
+| TAL_OCR_CHN(手写中文数据集)|0.0455 | 0.674（标注质量不太高,例如：test_64/552.jpg 标注值:蝶恋花, 实际值:欧阳修  ） |[TAL_OCR_CHN](https://pan.baidu.com/s/1GbyVpbiKyVN1nJipvH2fpA)  密码: 9kd8 | [TAL_OCR_CHN](https://ai.100tal.com/dataset) |0.6h(20epoch)|
 | HME100K(手写公式)|- | - |- | [HME100K](https://ai.100tal.com/dataset) |
 
 备注:后续所有模型会开源在这个目录下链接,可以自由下载. https://pan.baidu.com/s/1uSdWQhJPEy2CYoEULoOhRA  密码: vwi2
@@ -104,15 +104,13 @@ python app.py --cust_data_init_weights_path hand-write --test_img test/hand.png
 ## output: '醒我的昏迷,偿还我的天真。'
 ```
 
-#### 打印公式识别
-![image](img/im2latex.png)
-```
-unzip im2latex.zip 
-python app.py --cust_data_init_weights_path im2latex --test_img test/im2latex.png
+## 训练技巧
+###### 数据集较少时，可以采用数据增强的方法构造更多的数据，理论上几十万的数据（可不做数据增强，模型预训练已经见到过足够多的数据(票据类、证件类，打印、手写、拍照等场景)），可以收敛到90%以上的准确率（CER<0.05）   
+###### 训练样本不要自己resize到384*384（后续会优化这个结构，目前预训练是384*384），保留原图即可，模型前处理processor会自动处理    
+###### 如果要训练识别多行文字，文字行之间可以加一个特殊字符标记，例如："1234\n4567\n89990"   
+###### fine-tune中英文以外的语言效果可能不太好（足够多的数据及足够steps也能收敛），因为没有在其他语言上预训练    
 
-```
-
-
+## 技术交流可加微信(lywen52)
 ## 捐助
 如果此项目给您的工作带来了帮忙，希望您能贡献自己微薄的爱心,
 该项目的每一份收入将用着福利事业，每一季度在issues上公布捐赠明细!   
