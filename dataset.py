@@ -29,7 +29,13 @@ class trocrDataset(Dataset):
             txt_file = os.path.splitext(image_file)[0]+'.txt'
 
             with open(txt_file) as f:
-                    text = f.read().strip().replace('xa0','')
+                text = f.read().strip().replace('xa0','')
+                if text.startswith('[') and text.endswith(']'):
+                    ##list
+                    try:
+                       text = json.loads(text)
+                    except:
+                         pass
 
             image = Image.open(image_file).convert("RGB")
             image = self.transformer(image) ##图像增强函数
@@ -45,10 +51,13 @@ class trocrDataset(Dataset):
 
 def encode_text(text, max_target_length=128, vocab=None):
     """
+    ##自持自定义 list: ['<td>',"3","3",'</td>',....]
     {'input_ids': [0, 1092, 2, 1, 1],
     'attention_mask': [1, 1, 1, 0, 0]}
     """
-    text = list(text)
+    if type(text) is not list:
+       text = list(text)
+
     text = text[:max_target_length - 2]
     tokens = [vocab.get('<s>')]
     unk = vocab.get('<unk>')
@@ -76,9 +85,10 @@ def decode_text(tokens, vocab, vocab_inp):
     s_start = vocab.get('<s>')
     s_end = vocab.get('</s>')
     unk = vocab.get('<unk>')
+    pad = vocab.get('<pad>')
     text = ''
     for tk in tokens:
-        if tk not in [s_end, s_start]:
+        if tk not in [s_end, s_start , pad, unk]:
            text += vocab_inp[tk]
 
     return text

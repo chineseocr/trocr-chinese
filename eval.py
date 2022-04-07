@@ -1,6 +1,4 @@
 import os
-
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 from PIL import Image
 import numpy as np
 import time
@@ -29,17 +27,16 @@ def compute_metrics(pred_str, label_str):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='trocr fine-tune训练')
+    parser = argparse.ArgumentParser(description='trocr 模型评估')
     parser.add_argument('--cust_data_init_weights_path', default='./cust-data/weights', type=str,
                         help="初始化训练权重，用于自己数据集上fine-tune权重")
     parser.add_argument('--CUDA_VISIBLE_DEVICES', default='-1', type=str, help="GPU设置")
-    parser.add_argument('--test_img', default='test/test.jpg', type=str, help="img path")
     parser.add_argument('--dataset_path', default='dataset/HW-hand-write/HW_Chinese/*/*.[j|p]*', type=str,
                         help="img path")
-    parser.add_argument('--random_state', default=10086, type=int, help="用于训练集划分的随机数")
+    parser.add_argument('--random_state', default=None, type=int, help="用于训练集划分的随机数")
 
     args = parser.parse_args()
-
+    os.environ["CUDA_VISIBLE_DEVICES"] = args.CUDA_VISIBLE_DEVICES
     paths = glob(args.dataset_path)
     if args.random_state is not None:
         train_paths, test_paths = train_test_split(paths, test_size=0.05, random_state=args.random_state)

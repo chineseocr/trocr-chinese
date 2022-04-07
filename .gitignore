@@ -24,4 +24,5 @@ __pycache__/*
 dataset/test.json
 dataset/train.json
 app/
+models/
 

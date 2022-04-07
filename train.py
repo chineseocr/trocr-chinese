@@ -22,8 +22,11 @@ def compute_metrics(pred):
     labels_ids[labels_ids == -100] = processor.tokenizer.pad_token_id
     label_str = [decode_text(labels_id, vocab, vocab_inp) for labels_id in labels_ids]
     cer = cer_metric.compute(predictions=pred_str, references=label_str)
+
     acc = [pred == label for pred, label in zip(pred_str, label_str)]
+    print([pred_str[0], label_str[0]])
     acc = sum(acc)/(len(acc)+0.000001)
+
     return {"cer": cer, "acc": acc}
 
 if __name__ == '__main__':
@@ -34,10 +37,11 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_path', default='./dataset/cust-data/*/*.jpg', type=str, help="训练数据集")
     parser.add_argument('--per_device_train_batch_size', default=32, type=int, help="train batch size")
     parser.add_argument('--per_device_eval_batch_size', default=8, type=int, help="eval batch size")
+    parser.add_argument('--max_target_length', default=128, type=int, help="训练文字字符数")
 
     parser.add_argument('--num_train_epochs', default=10, type=int, help="训练epoch数")
-    parser.add_argument('--eval_steps', default=5000, type=int, help="模型评估间隔数")
-    parser.add_argument('--save_steps', default=500, type=int, help="模型保存间隔步数")
+    parser.add_argument('--eval_steps', default=1000, type=int, help="模型评估间隔数")
+    parser.add_argument('--save_steps', default=1000, type=int, help="模型保存间隔步数")
 
     parser.add_argument('--CUDA_VISIBLE_DEVICES', default='0,1', type=str, help="GPU设置")
 
@@ -56,8 +60,8 @@ if __name__ == '__main__':
     vocab = processor.tokenizer.get_vocab()
     vocab_inp = {vocab[key]: key for key in vocab}
 
-    train_dataset = trocrDataset(paths=train_paths, processor=processor)
-    eval_dataset = trocrDataset(paths=test_paths, processor=processor)
+    train_dataset = trocrDataset(paths=train_paths, processor=processor, max_target_length=args.max_target_length)
+    eval_dataset = trocrDataset(paths=test_paths, processor=processor, max_target_length=args.max_target_length)
 
     model = VisionEncoderDecoderModel.from_pretrained(args.cust_data_init_weights_path)
     model.config.decoder_start_token_id = processor.tokenizer.cls_token_id
@@ -99,6 +103,8 @@ if __name__ == '__main__':
         data_collator=default_data_collator,
     )
     trainer.train()
+    trainer.save_model(os.path.join(args.checkpoint_path, 'last'))
+    processor.save_pretrained(os.path.join(args.checkpoint_path, 'last'))
 
 
 

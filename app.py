@@ -32,4 +32,4 @@ if __name__ == '__main__':
         generated_ids = model.generate(pixel_values[:, :, :].cpu())
 
     generated_text = decode_text(generated_ids[0].cpu().numpy(), vocab, vocab_inp)
-    print('time take:', round(time.time() - t, 2), "s ocr:", [generated_text.replace(' ', '\n')])
+    print('time take:', round(time.time() - t, 2), "s ocr:", [generated_text])
