@@ -26,7 +26,7 @@ c
 ```
 ```[python]
 python gen_vocab.py \
-       --dataset_dataset_path "dataset/cust-data/0/*.txt" \
+       --dataset_path "dataset/cust-data/0/*.txt" \
        --cust_vocab ./cust-data/vocab.txt
 
 ```
@@ -106,7 +106,7 @@ python app.py --cust_data_init_weights_path hand-write --test_img test/hand.png
 
 ## 训练技巧
 ###### 数据集较少时，可以采用数据增强的方法构造更多的数据，理论上几十万的数据（可不做数据增强，模型预训练已经见到过足够多的数据(票据类、证件类，打印、手写、拍照等场景)），可以收敛到90%以上的准确率（CER<0.05）   
-###### 训练样本不要自己resize到384*384（后续会优化这个结构，目前预训练是384*384），保留原图即可，模型前处理processor会自动处理    
+###### 训练样本不要自己resize到384x384（后续会优化这个结构，目前预训练是384x384），保留原图即可，模型前处理processor会自动处理    
 ###### 如果要训练识别多行文字，文字行之间可以加一个特殊字符标记，例如："1234\n4567\n89990"   
 ###### fine-tune中英文以外的语言效果可能不太好（足够多的数据及足够steps也能收敛），因为没有在其他语言上预训练    
 
