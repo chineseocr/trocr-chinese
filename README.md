@@ -110,9 +110,3 @@ python app.py --cust_data_init_weights_path hand-write --test_img test/hand.png
 ###### 如果要训练识别多行文字，文字行之间可以加一个特殊字符标记，例如："1234\n4567\n89990"   
 ###### fine-tune中英文以外的语言效果可能不太好（足够多的数据及足够steps也能收敛），因为没有在其他语言上预训练    
 
-## 技术交流可加微信(lywen52)
-## 捐助
-如果此项目给您的工作带来了帮忙，希望您能贡献自己微薄的爱心,
-该项目的每一份收入将用着福利事业，每一季度在issues上公布捐赠明细!   
-![image](img/chat.jpg)
-
