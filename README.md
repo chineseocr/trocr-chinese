@@ -86,7 +86,7 @@ python app.py --cust_data_init_weights_path ./cust-data/weights --test_img test/
 | 模型        | cer(字符错误率)           | acc(文本行)  | 下载地址  |训练数据来源 |训练耗时(GPU:3090) | 
 | ------------- |:-------------:| -----:|-----:|-----:|-----:|
 | hand-write(中文手写)      |0.011 | 0.940 |[hand-write](https://pan.baidu.com/s/19f7iu9tLHkcT_zpi3UfqLQ)  密码: punl |[数据集地址](https://aistudio.baidu.com/aistudio/datasetdetail/102884/0) |8.5h(10epoch)|
-| seal(印章识别)      |- | - |- |- |
+| seal-ocr(印章识别)      |0.006 | 0.956 |[seal-ocr](https://pan.baidu.com/s/1LcOufq8o2NYtYpwkumxyMg)  密码: cku3 |- |
 | im2latex(数学公式识别)      |- | - |- |[im2latex](https://zenodo.org/record/56198#.YkniL25Bx_S) ||
 | TAL_OCR_TABLE(表格识别)     |- | - |- |[TAL_OCR_TABLE](https://ai.100tal.com/dataset) |
 | TAL_OCR_MATH(小学低年级算式数据集)|- | - |- | [TAL_OCR_MATH](https://ai.100tal.com/dataset) |
