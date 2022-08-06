@@ -14,7 +14,7 @@ if __name__=='__main__':
         with codecs.open(p, encoding='utf-8') as f:
             txt = f.read().strip()
         vocab.update(txt)
-    root_path = os.path.split(args.cust_vocab)
+    root_path = os.path.split(args.cust_vocab)[0]
     os.makedirs(root_path, exist_ok=True)
     with open(args.cust_vocab, 'w') as f:
         f.write('\n'.join(list(vocab)))
