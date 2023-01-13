@@ -34,7 +34,8 @@ python gen_vocab.py \
 ```
 ### 初始化自定义数据集模型
 #### 下载预训练模型trocr模型权重
-链接: https://pan.baidu.com/s/1rARdfadQlQGKGHa3de82BA  密码: 0o65
+链接: https://pan.baidu.com/s/1rARdfadQlQGKGHa3de82BA  密码: 0o65.  
+google driver: https://drive.google.com/drive/folders/1ibOVCHu33asiMUaFT9FzvhFNM4z25cJY?usp=share_link  
 ```
 python init_custdata_model.py \   
     --cust_vocab ./cust-data/vocab.txt \  
