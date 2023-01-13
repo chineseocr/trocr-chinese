@@ -3,9 +3,11 @@ trocr原地址(https://github.com/microsoft/unilm/tree/master/trocr)
 ## 实现功能
 - [x]  单行/多行文字/横竖排文字识别
 - [x]  不规则文字（印章，公式等）
+- [x]  转 onnx模型
 - [ ]  表格识别
 - [ ]  模型蒸馏/DML(协作学习)
 - [ ]  Prompt Learning
+
 ## 环境编译
 ```
 docker build --network=host -t trocr-chinese:latest .
@@ -80,6 +82,19 @@ python eval.py \
 index = 2300 ##选择最好的或者最后一个step模型
 cp ./checkpoint/trocr-custdata/checkpoint-$index/pytorch_model.bin ./cust-data/weights
 python app.py --cust_data_init_weights_path ./cust-data/weights --test_img test/test.jpg
+```
+## 转onnx 
+```shell
+python -m \
+    transformers.onnx \
+    hand-write \
+    --feature=vision2seq-lm \
+    hand-write-onnx --atol 1e-4
+
+cp hand-write/vocab.json hand-write-onnx/
+
+python onnx_test.py --model hand-write-onnx --test_img ./img/hand.png
+
 ```
 
 ## 预训练模型
